@@ -1,12 +1,16 @@
-library(shiny)
-library(dplyr)
-library(leaflet)
-library(leaflet.providers)
+---
+title: "Control Notebook for Atmospheric Modeling"
+output: html_notebook
+---
 
-# Retrieve the latest station list from NOAA and store the .txt locally
+Go to the internet and retrieve the worldwide radiosonde station list.
+```{r}
 statList <- tempfile()
 download.file("ftp://ftp.ncdc.noaa.gov/pub/data/igra/igra2-station-list.txt", statList)
+```
 
+Make a function to parse the worldwide radiosonde station list.
+```{r}
 #function to parse station list
 stations_parser <- function(file, ...) {
   readr::read_fwf(
@@ -29,6 +33,10 @@ stations_parser <- function(file, ...) {
     )
   )
 }
+```
 
-# Load the station list file into a stations dataframe
-stations <- stations_parser(statList) %>% filter(ELEVATION != -998.8)
+Load the radiosonde station list into a dataframe.
+```{r}
+stations <- stations_parser(statList)
+```
+

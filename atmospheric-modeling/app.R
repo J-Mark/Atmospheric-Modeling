@@ -41,7 +41,6 @@ server <- function(input, output) {
                 options = layersControlOptions(collapsed = FALSE)
             )
     })
-    observe()
 }
 
 
